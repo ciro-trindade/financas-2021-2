@@ -31,7 +31,7 @@ public class ContaController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> get(@PathVariable("id") Long id) {
-		Conta _conta = service.find(id);
+		Conta _conta = service.findById(id);
 		if (_conta != null)
 			return ResponseEntity.ok(_conta);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -71,7 +71,6 @@ public class ContaController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
-
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
