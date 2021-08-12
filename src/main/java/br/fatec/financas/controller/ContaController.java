@@ -35,8 +35,9 @@ public class ContaController {
 		if (_conta != null)
 			return ResponseEntity.ok(_conta);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	}
-
+	}	
+	
+	
 	@PostMapping
 	public ResponseEntity<Conta> post(@RequestBody Conta conta) {
 		service.create(conta);
@@ -51,6 +52,27 @@ public class ContaController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
+	@PutMapping(value = "/depositar/{id}/{valor}")
+	public ResponseEntity<?> depositar(@PathVariable("id") Long id, @PathVariable("valor") Float valor) {
+		Float saldo = service.depositar(id, valor);
+		if (saldo != null)
+			return ResponseEntity.ok(saldo);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+
+	@PutMapping(value = "/sacar/{id}/{valor}")
+	public ResponseEntity<?> sacar(@PathVariable("id") Long id, @PathVariable("valor") Float valor) {
+		try {
+			Float saldo = service.sacar(id, valor);
+			if (saldo != null)
+				return ResponseEntity.ok(saldo);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+
+	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		if (service.delete(id)) {
