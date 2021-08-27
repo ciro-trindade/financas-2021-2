@@ -11,13 +11,14 @@ public class Conta extends AbstractEntity {
 	
 	@Column(name = "nr_agencia")
 	private Integer agencia;
+	
 	@Column(name = "nm_numero", length = 10)
 	private String numero;
-	@Column(name = "nm_titular", length = 100)
-	private String titular;
+	
 	@Column(name = "vl_saldo")
 	private Float saldo;
 
+	
 	public Conta() {
 	}
 
@@ -37,14 +38,6 @@ public class Conta extends AbstractEntity {
 		this.numero = numero;
 	}
 
-	public String getTitular() {
-		return titular;
-	}
-
-	public void setTitular(String titular) {
-		this.titular = titular;
-	}
-
 	public Float getSaldo() {
 		return saldo;
 	}
@@ -52,5 +45,5 @@ public class Conta extends AbstractEntity {
 	public void setSaldo(Float saldo) {
 		this.saldo = saldo;
 	}
-
+	
 }
