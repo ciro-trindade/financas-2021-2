@@ -2,6 +2,8 @@ package br.fatec.financas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,14 +43,14 @@ public class PessoaFisicaController implements ControllerInterface<PessoaFisica>
 
 	@Override
 	@PostMapping
-	public ResponseEntity<PessoaFisica> post(@RequestBody PessoaFisica obj) {
+	public ResponseEntity<PessoaFisica> post(@Valid @RequestBody PessoaFisica obj) {
 		service.create(obj);
 		return ResponseEntity.ok(obj);
 	}
 
 	@Override
 	@PutMapping
-	public ResponseEntity<?> put(@RequestBody PessoaFisica obj) {
+	public ResponseEntity<?> put(@Valid @RequestBody PessoaFisica obj) {
 		if (service.update(obj)) {
 			return ResponseEntity.ok(obj);
 		}

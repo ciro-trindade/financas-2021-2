@@ -1,5 +1,6 @@
 package br.fatec.financas.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +52,10 @@ public class MovimentacaoService implements ServiceInterface<Movimentacao>{
 			return true;
 		}			
 		return false;
+	}
+
+	public List<Movimentacao> findByDate(Date data) {
+		return repository.findByData(data);
 	}
 	
 }

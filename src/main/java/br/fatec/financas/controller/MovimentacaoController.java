@@ -1,6 +1,9 @@
 package br.fatec.financas.controller;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,16 +42,21 @@ public class MovimentacaoController implements ControllerInterface<Movimentacao>
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
+	@GetMapping("/data/{data}")	
+	public ResponseEntity<List<Movimentacao>> getByDate(@PathVariable("data") Date data) {
+		return ResponseEntity.ok(service.findByDate(data));
+	}
+	
 	@Override
 	@PostMapping
-	public ResponseEntity<Movimentacao> post(@RequestBody Movimentacao obj) {
+	public ResponseEntity<Movimentacao> post(@Valid @RequestBody Movimentacao obj) {
 		service.create(obj);
 		return ResponseEntity.ok(obj);
 	}
 
 	@Override
 	@PutMapping
-	public ResponseEntity<?> put(@RequestBody Movimentacao obj) {
+	public ResponseEntity<?> put(@Valid @RequestBody Movimentacao obj) {
 		if (service.update(obj)) {
 			return ResponseEntity.ok(obj);
 		}

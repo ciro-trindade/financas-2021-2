@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.fatec.financas.model.PessoaFisica;
@@ -15,8 +16,12 @@ public class PessoaFisicaService implements ServiceInterface<PessoaFisica> {
 	@Autowired
 	private PessoaFisicaRepository repository;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	public PessoaFisica create(PessoaFisica obj) {
+		obj.setSenha(passwordEncoder.encode(obj.getSenha()));
 		repository.save(obj);
 		return obj;
 	}
@@ -35,6 +40,7 @@ public class PessoaFisicaService implements ServiceInterface<PessoaFisica> {
 	@Override
 	public boolean update(PessoaFisica obj) {		
 		if (repository.existsById(obj.getId())) {
+			obj.setSenha(passwordEncoder.encode(obj.getSenha()));
 			repository.save(obj);
 			return true;
 		}
